@@ -1,1 +1,34 @@
-{"books":[{"book": { "title":"JavaScript, the Definitive Guide", "publisher":"O'Reilly", "author":"David Flanagan", "cover":"http://it-ebooks.info/images/ebooks/3/javascript_the_definitive_guide_6th_edition.jpg", "blurb":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit." } }, {"book": { "title":"DOM Scripting", "publisher":"Friends of Ed", "author":"Jeremy Keith", "cover":"http://www.accessify.com/features/reviews/dom-scripting/dom-scripting.jpg", "blurb":"Praesent et diam a ligula facilisis venenatis." } }, {"book": { "title":"DHTML Utopia: Modern Web Design using JavaScript & DOM", "publisher":"Sitepoint", "author":"Stuart Langridge", "cover":"http://www.ebooksz.net/wp-content/uploads/2017/01/0000.jpg", "blurb":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit." } } ]}
+<html>
+<head>
+<script>
+function loadjson(){
+	var xmlhttp;
+	xmlhttp = new XMLHttpRequest;
+	xmlhttp.onreadystatechange = function(){
+		if (xmlhttp.readyState == 4 &&  xmlhttp.status == 200){
+			var html = "";
+			var obj = JSON.parse(xmlhttp.responseText);
+			//alert(obj.books.length);
+			for (i = 0; i < obj.books.length; i++){
+				html += obj.books[i].book.title + "<br>";
+				html += "<img src='" + obj.books[i].book.cover + "' height='100'><hr>";	
+			}
+			document.getElementById("mydiv").innerHTML = html;
+		}
+	}
+	xmlhttp.open("GET", "http://angsila.cs.buu.ac.th/~wittawas/592/887371/labs/get_json.php", true);
+	xmlhttp.send();
+}
+</script>
+</head>
+<body>
+<div id="mydiv">
+<h2>
+	Let AJAX change this text
+	</h2>
+</div>
+<button type="button" onclick="loadjson()">
+	change content
+</button>
+</body>
+</html>
